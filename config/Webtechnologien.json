@@ -2,6 +2,7 @@
     "project_name": "Webtechnologien",
     "project_url": "git@gitlab.zeus-coding.de:HfTL_Projects/Webtechnologien.git",
     "ssh_key": "/home/gitlab/.ssh/id_rsa_deploy",
+    "ssh": true,
     "project_parent": "/var/www/",
 
     "events": [{
