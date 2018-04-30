@@ -1,0 +1,32 @@
+{
+    "project_name": "Webtechnologien",
+    "project_url": "git@gitlab.zeus-coding.de:HfTL_Projects/Webtechnologien.git",
+    "ssh_key": "/home/gitlab/.ssh/id_rsa_deploy",
+    "project_parent": "/var/www/",
+
+    "events": [{
+            "event": "merge_request",
+            "required": {
+                "state": "merged",
+                "source_branch": "*",
+                "target_branch": "developing"
+            },
+            "action": {
+                "checkout_branch": "developing",
+                "execute": ""
+            }
+        },
+        {
+            "event": "push",
+            "reuired": {
+                "source_branch": "*",
+                "target_branch": "developing",
+                "user_username": "s168139"
+            },
+            "action": {
+                "checkout_branch": "developing",
+                "execute": ""
+            }
+        }
+    ]
+}
