@@ -45,15 +45,13 @@ private :load_config, :parse_request
 log_message "<-- Starting webhook_receiver -->"
 log_message "Reading configuration files"
 load_config
-parse_request JSON.parse File.read "test.json"
 log_message "Starting HTTPServer on port #{@port}"
 server = WEBrick::HTTPServer.new :Port => @port
 server.mount_proc "/" do |req, res|
   log_message "#######################################################################"
   log_message "Received new request"
   log_message req.body
-  request = JSON.parse req.body
-  parse_request(request)
+  parse_request JSON.parse req.body
 end
 
 trap "INT" do
