@@ -6,4 +6,4 @@ echo "Removing GitLab webhook receiver."
 service webhook_receiver stop
 rm -r $dest_path
 rm /etc/init.d/webhook_receiver
-
+rm /var/log/webhook_receiver.log

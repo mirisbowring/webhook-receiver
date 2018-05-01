@@ -10,4 +10,6 @@ wget https://gitlab.zeus-coding.de/arlindne/webhook_receiver/raw/master/install 
 To remove the tool, execute the following command:
 ```bash
 wget https://gitlab.zeus-coding.de/arlindne/webhook_receiver/raw/master/remove -O - | sudo bash
-```
+```  
+  
+>**Hint:** Executing the commands above does not work with the root user for some reason.
