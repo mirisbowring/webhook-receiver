@@ -9,11 +9,12 @@ git clone https://gitlab.zeus-coding.de/arlindne/webhook_receiver.git
 cd webhook_receiver
 mv ubuntu_service/webhook_receiver /etc/init.d/
 chmod +x /etc/init.d/webhook_receiver
-update-rc.d webhook_receiver defaults
 mkdir -p $dest_path
 mv webhook_receiver.rb $dest_path
 mv helper $dest_path
 mv config $dest_path
+sudo update-rc.d webhook_receiver defaults
+sudo service webhook_receiver start
 cd ..
 rm -r webhook_receiver
 shred -u $0;
