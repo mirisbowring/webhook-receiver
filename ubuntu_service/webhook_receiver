@@ -1,0 +1,72 @@
+#!/bin/sh
+### BEGIN INIT INFO
+# Provides:          gitlab webhook receiver
+# Required-Start:    $remote_fs $syslog
+# Required-Stop:     $remote_fs $syslog
+# Default-Start:     4
+# Default-Stop:      0 1 6
+# Short-Description: pulls git repo on merge webhook
+# Description:       This script receives webhooks from GitLab.
+#                    It validates, that the hook contains specific
+#                    information about the event and reclones the
+#                    repository on an specified branch.
+### END INIT INFO
+
+# Author: Arthur Ferdinand Lindner <arthur.lindner@outlook.de>
+
+# Source function library.
+#. /etc/init.d/functions
+
+# Check that networking is up.
+if ! ping -q -c 1 -W 1 8.8.8.8 >/dev/null; then
+	exit 0
+fi
+
+prog="/opt/scripts/gitlab/webhook_receiver.rb"
+pid="$(cat /opt/scripts/gitlab/webhook_receiver.pid)"
+PROG_USER="root"
+RETVAL=0
+
+start () {
+        echo -n "Starting $prog"
+        /usr/bin/sudo -u $PROG_USER  ruby "$prog" &
+        RETVAL=$?
+        [ $RETVAL -eq 0 ] && success || failure
+        echo
+}
+
+stop () {
+        echo -n "Stopping $prog"
+        /usr/bin/sudo kill $pid
+        RETVAL=$?
+        [ $RETVAL -eq 0 ] && success || failure
+        echo
+}
+
+restart () {
+        stop
+        start
+}
+
+# See how we are called.
+case "$1" in
+  start)
+        start
+        ;;
+  stop)
+        stop
+        ;;
+  restart|reload)
+        restart
+        ;;
+  status)
+        status $prog
+        RETVAL=$?
+        ;;
+  *)
+        echo "Usage: service webhook-receiver {start|stop|restart|reload}"
+        RETVAL=2
+        ;;
+
+esac
+exit $RETVAL
