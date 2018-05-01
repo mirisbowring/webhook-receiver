@@ -1,9 +1,9 @@
 require "webrick"
 require "json"
 
-require_relative "event"
-require_relative "project"
-require_relative "helper"
+require_relative "helper/event"
+require_relative "helper/project"
+require_relative "helper/helper"
 
 @port = 8000
 
