@@ -9,11 +9,11 @@
             "event": "merge_request",
             "required": {
                 "state": "merged",
-                "source_branch": "*",
                 "target_branch": "developing"
             },
             "action": {
                 "checkout_branch": "developing",
+                "strategy": "clone",
                 "execute": ""
             }
         },
@@ -26,6 +26,7 @@
             },
             "action": {
                 "checkout_branch": "developing",
+                "strategy": "clone",
                 "execute": ""
             }
         }
