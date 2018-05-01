@@ -1,0 +1,20 @@
+#!/bin/bash
+
+dest_path="/opt/scripts/gitlab/webhook_receiver/"
+
+echo "Installing the gitlab webhook receiver."
+git clone https://gitlab.zeus-coding.de/arlindne/webhook_receiver.git
+cd webhook_receiver
+mv ubuntu_service/webhook_receiver /etc/init.d/
+chmod +x /etc/init.d/webhook_receiver
+update-rc.d webhook_receiver defaults
+mkdir -p $dest_path
+mv webhook_receiver.rb $dest_path
+mv -r helper $dest_path
+mv -r config $dest_path
+
+function finish{
+	rm -r ../webhook_receiver
+}
+
+trap finish EXIT
