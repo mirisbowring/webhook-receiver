@@ -1,48 +1,54 @@
-#!/usr/bin/ruby
 
 require "webrick"
 require "json"
 
-# Configurations
-
-@log_file = "/var/log/webhook_receiver.log"
+require_relative "event"
+require_relative "project"
+require_relative "helper"
 
 @port = 8000
 
-@project_name = "Webtechnologien"
-@project_parent = "/var/www/"
-@ssh_key_path = "/home/gitlab/.ssh/id_rsa_deploy"
-@checkout_branch = "developing"
-@git_url = "git@gitlab.zeus-coding.de:HfTL_Projects/Webtechnologien.git"
-@git_event = "merge_request"
-@git_event_status = "merged"
+### Project configuration path
+@config_path = "config/"
 
-#########################################################################
+###############################################################################
 
-def log_message(message)
-  File.open(@log_file, "a") { |f|
-    f.puts "#{Time.now} --- " + message
-  }
+def load_config()
+  @projects = Array.new
+  Dir.glob("#{@config_path}/*.json") do |cf|
+    @projects << Project.new(cf)
+  end
 end
 
-def reclone(project)
-  reClone = system("sudo rm -rf #{@project_parent}/#{@project_name}")
-  reClone = system("sudo ssh-agent bash -c 'ssh-add #{@ssh_key_path}; git clone -b #{@checkout_branch} --single-branch #{@git_url} #{@project_parent}/#{@project_name}'")
-  log_message "reClone was #{reClone}"
+def parse_request(request)
+  project = @projects.select { |proj| proj.name == request["project"]["name"] }
+  begin
+    data = project[0].data
+    event = Event.new data["events"].detect { |e| e["event"] == request["object_kind"] }
+    if !event.exist?
+      log_message "Event '#{request["object_kind"]}' not configured."
+    elsif event.check_requirements request # returns true if valid
+      event.handle_action project
+    end
+  rescue
+    log_message "Project '#{request["project"]["name"]}' not found in configuration."
+  end
 end
 
-private :log_message, :reclone
+private :load_config, :reclone, :parse_request
 
+log_message "<-- Starting webhook_receiver -->"
+log_message "Reading configuration files"
+load_config
+parse_request JSON.parse File.read "test.json"
+log_message "Starting HTTPServer on port #{@port}"
 server = WEBrick::HTTPServer.new :Port => @port
 server.mount_proc "/" do |req, res|
   log_message "#######################################################################"
   log_message "Received new request"
   log_message req.body
   request = JSON.parse req.body
-  if request["object_kind"] == @git_event && request["project"]["name"] == @project_name && request["object_attributes"]["target_branch"] == @checkout_branch && request["object_attributes"]["state"] == @git_event_status
-    log_message "valid request"
-    reclone @project_name
-  end
+  parse_request(request)
 end
 
 trap "INT" do
