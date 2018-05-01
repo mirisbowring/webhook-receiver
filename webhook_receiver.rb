@@ -34,6 +34,8 @@ def parse_request(request)
       log_message "Event '#{request["object_kind"]}' not configured for #{project.name}."
     elsif event.check_requirements request # returns true if valid
       event.handle_action project
+    else
+      log_message "The Current Request does not match all requirements. - skipping"
     end
   rescue
     log_message "Project '#{request["project"]["name"]}' not found in configuration."
