@@ -1,0 +1,9 @@
+#!/bin/bash
+
+dest_path="/opt/scripts/gitlab/webhook_receiver"
+
+echo "Removing GitLab webhook receiver."
+service webhook_receiver stop
+rm -r $dest_path
+rm /etc/init.d/webhook_receiver
+
