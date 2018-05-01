@@ -14,7 +14,7 @@ mv webhook_receiver.rb $dest_path
 mv helper $dest_path
 mv config $dest_path
 sudo update-rc.d webhook_receiver defaults
-sudo service webhook_receiver start
+sudo service webhook_receiver restart
 cd ..
 rm -r webhook_receiver
 #shred -u $0;
