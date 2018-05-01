@@ -3,6 +3,7 @@
 dest_path="/opt/scripts/gitlab/webhook_receiver/"
 
 echo "Installing the gitlab webhook receiver."
+sudo service webhook_receiver stop
 rm -r $dest_path
 rm /etc/init.d/webhook_receiver
 git clone https://gitlab.zeus-coding.de/arlindne/webhook_receiver.git
