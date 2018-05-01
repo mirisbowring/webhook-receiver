@@ -15,11 +15,11 @@ end
 # Params:
 # +project+:: +Project+ object that holds the parsed configuration file for the related project
 def re_clone(project, event)
-  reClone = system("sudo rm -rf #{project["project_parent"]}/#{project["project_name"]}")
+  reClone = system("sudo rm -rf #{project.data["project_parent"]}/#{project.data["project_name"]}")
   if project["ssh"]
-    reClone = system("sudo ssh-agent bash -c 'ssh-add #{project["ssh_key"]}; git clone -b #{event["action"]["checkout_branch"]} --single-branch #{project["project_url"]} #{project["project_parent"]}/#{project["project_name"]}'")
+    reClone = system("sudo ssh-agent bash -c 'ssh-add #{project.data["ssh_key"]}; git clone -b #{event["action"]["checkout_branch"]} --single-branch #{project.data["project_url"]} #{project.data["project_parent"]}/#{project.data["project_name"]}'")
   else
-    reClone = system("sudo git clone -b git clone -b #{event["action"]["checkout_branch"]} --single-branch #{project["project_url"]} #{project["project_parent"]}/#{project["project_name"]}")
+    reClone = system("sudo git clone -b git clone -b #{event["action"]["checkout_branch"]} --single-branch #{project.data["project_url"]} #{project.data["project_parent"]}/#{project.data["project_name"]}")
   end
   log_message "reClone was #{reClone}"
 end
@@ -29,7 +29,7 @@ end
 # +project+:: +Project+ object that holds the parsed configuration file for the related project
 # +event+:: +Event+ object which is the related event from the project settings for the current webhook
 def do_strategy(project, event)
-  strategy = system("cd #{project["project_parent"]}/#{project["project_name"]}")
-  strategy = system("git #{event["action"]["strategy"]}")
+  strategy = system("cd #{project.data["project_parent"]}/#{project.data["project_name"]}")
+  strategy = system("git #{event.data["action"]["strategy"]}")
   log_message "#{event["action"]["strategy"]} was #{reClone}"
 end
