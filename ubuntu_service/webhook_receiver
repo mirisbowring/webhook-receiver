@@ -64,7 +64,7 @@ case "$1" in
         RETVAL=$?
         ;;
   *)
-        echo "Usage: service webhook-receiver {start|stop|restart|reload}"
+        echo "Usage: service webhook_receiver {start|stop|restart|reload}"
         RETVAL=2
         ;;
 
