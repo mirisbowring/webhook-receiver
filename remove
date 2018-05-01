@@ -2,6 +2,11 @@
 
 dest_path="/opt/scripts/gitlab/webhook_receiver"
 
+if [[ $(/usr/bin/id -u) -ne 0 ]]; then
+    sudo bash $0
+    exit
+fi
+
 echo "Removing GitLab webhook receiver."
 service webhook_receiver stop
 rm -r $dest_path
