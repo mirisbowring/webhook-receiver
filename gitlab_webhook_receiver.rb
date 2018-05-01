@@ -42,6 +42,10 @@ end
 
 private :load_config, :parse_request
 
+File.open("/opt/scripts/gitlab/gitlab_webhook_receiver.pid", "w") { |f|
+  f.puts Process.pid
+}
+
 log_message "<-- Starting webhook_receiver -->"
 log_message "Reading configuration files"
 load_config
