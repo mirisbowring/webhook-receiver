@@ -37,7 +37,7 @@ def parse_request(request)
     else
       log_message "The Current Request does not match all requirements. - skipping"
     end
-  rescue
+   rescue StandardError => e
     log_message "Project '#{request["project"]["name"]}' not found in configuration."
   end
 end
