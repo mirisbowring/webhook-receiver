@@ -26,9 +26,9 @@ end
 # Params:
 # +request+:: +JSON+ object that holds the webhook data
 def parse_request(request)
-  project = @projects.select { |proj| proj.name == request["project"]["name"] }
+  project = @projects.select { |proj| proj.name == request["project"]["name"] }[0]
   begin
-    data = project[0].data
+    data = project.data
     event = Event.new data["events"].detect { |e| e["event"] == request["object_kind"] }
     if !event.exist?
       log_message "Event '#{request["object_kind"]}' not configured for #{project.name}."
