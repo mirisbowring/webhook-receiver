@@ -17,4 +17,4 @@ sudo update-rc.d webhook_receiver defaults
 sudo service webhook_receiver start
 cd ..
 rm -r webhook_receiver
-shred -u $0;
+#shred -u $0;
