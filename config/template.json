@@ -1,0 +1,32 @@
+{
+    "project_name": "Poject_name",
+    "project_url": "git@example.de:namespace/project.git",
+    "ssh_key": "/path/to/private/key",
+    "ssh": true,
+    "project_parent": "/path/to/parent",
+
+    "events": [{
+            "event": "merge_request",
+            "required": {
+                "state": "merged",
+                "target_branch": "master"
+            },
+            "action": {
+                "checkout_branch": "master",
+                "strategy": "clone",
+                "execute": ""
+            }
+        },
+        {
+            "event": "push",
+            "reuired": {
+                "target_branch": "developing"
+            },
+            "action": {
+                "checkout_branch": "developing",
+                "strategy": "clone",
+                "execute": "echo 'Hello World!'"
+            }
+        }
+    ]
+}
