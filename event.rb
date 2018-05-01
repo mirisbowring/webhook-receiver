@@ -35,9 +35,9 @@ class Event
   def handle_action(project)
     puts "1"
     if @event["action"]["strategy"] == "clone"
-      # re_clone(project, @event)
+      re_clone(project, @event)
     else
-      # do_strategy(project, @event)
+      do_strategy(project, @event)
     end
     puts "2"
     returnVal = ""
