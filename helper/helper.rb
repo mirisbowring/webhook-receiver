@@ -1,4 +1,4 @@
-@log_file = "webhook_receiver.log"
+@log_file = "/var/log/webhook_receiver.log"
 
 ###############################################################################
 
