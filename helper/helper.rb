@@ -16,7 +16,7 @@ end
 # +project+:: +Project+ object that holds the parsed configuration file for the related project
 def re_clone(project, event)
   reClone = system("sudo rm -rf #{project.data["project_parent"]}/#{project.data["project_name"]}")
-  if project["ssh"]
+  if project.data["ssh"]
     reClone = system("sudo ssh-agent bash -c 'ssh-add #{project.data["ssh_key"]}; git clone -b #{event["action"]["checkout_branch"]} --single-branch #{project.data["project_url"]} #{project.data["project_parent"]}/#{project.data["project_name"]}'")
   else
     reClone = system("sudo git clone -b git clone -b #{event["action"]["checkout_branch"]} --single-branch #{project.data["project_url"]} #{project.data["project_parent"]}/#{project.data["project_name"]}")
