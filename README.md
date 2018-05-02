@@ -17,6 +17,7 @@ wget https://gitlab.zeus-coding.de/arlindne/webhook_receiver/raw/master/remove -
 ```  
   
 >**Hint:** Executing the commands above does not work with the root user for some reason.  
+  
 ## Configuration
 This tool is using json files for configuration.  
 Each project that should be handled needs a separate json config file.  
