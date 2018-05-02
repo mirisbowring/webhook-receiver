@@ -31,5 +31,7 @@ An event consists of 3 members:
 |||
 | :--- | :--- |
 | `event`    | - must match the event string of the webhook|
-| `required`|  - can contain any member of the `object_attributes` parent (for an `merge_request`)|
-| `action` |   - consists of `checkout_branch` (the branch to be used), `strategy` (which git strategy to execute - clone, pull, etc.), `execute` (executes a shell command)|
+| `required`|  - can contain any member of the `object_attributes` parent (for an `merge event`, `issue event`, `commit event`, `wiki_page event`)|
+| `action` |   - consists of `checkout_branch` (the branch to be used), `strategy` (which git strategy to execute - clone, pull, etc.), `execute` (executes a shell command)|  
+  
+You can check the webhook members for all events at the [official GitLab Wiki](https://docs.gitlab.com/ee/user/project/integrations/webhooks.html#events)
