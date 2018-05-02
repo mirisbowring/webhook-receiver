@@ -24,7 +24,7 @@ There is already an template available (you can copy and modify it to fit your n
 The files are located in `/opt/scripts/gitlab/webhook_receiver/config/`.  
   
 ### JSON modification  
-The first 5 members are necessary (except the ´ssh_key´, which is only needed if ´ssh´ is ´true´).  
+The first 5 members are necessary (except the `ssh_key`, which is only needed if `ssh` is `true`).  
 The event array holds all events that should be handled. An event cannot be handled twice (currently).  
 An event consists of 3 members:   
   
