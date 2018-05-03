@@ -8,7 +8,7 @@ require_relative "helper/helper"
 @port = 8000
 
 ### Project configuration path
-@config_path = "config/"
+@config_path = "/opt/scripts/gitlab/webhook_receiver/config/"
 
 ###############################################################################
 
