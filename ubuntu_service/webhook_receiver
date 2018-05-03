@@ -19,7 +19,7 @@ NAME="webhook_receiver"
 PATH="/usr/local/sbin:/usr/local/bin:/sbin:/bin:/usr/sbin:/usr/bin"
 APPDIR="/opt/scripts/gitlab/webhook_receiver"
 APPBIN="/usr/bin/ruby"
-APPARGS=""
+APPARGS="webhook_receiver.rb"
 USER="root"
 GROUP="root"
 
