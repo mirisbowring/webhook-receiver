@@ -49,15 +49,11 @@ def parse_request(request)
     end
   rescue StandardError => e
     log_message "An error occured: #{e}"
-    puts e.backtrace
+    log_message e.backtrace
   end
 end
 
 private :load_config, :parse_request
-
-File.open("/opt/scripts/gitlab/webhook_receiver/webhook_receiver.pid", "w") { |f|
-  f.puts Process.pid
-}
 
 log_message "<-- Starting webhook_receiver -->"
 log_message "Reading configuration files"
