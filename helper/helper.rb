@@ -8,7 +8,9 @@
 def log_message(message)
   puts message
   File.open(@log_file, "a") { |f|
+    puts "1"
     f.puts "#{Time.now} --- #{message.to_s}"
+    puts "2"
   }
   puts "written message"
 end
