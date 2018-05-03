@@ -28,9 +28,7 @@ end
 # +request+:: +JSON+ object that holds the webhook data
 def parse_request(request)
   projects = load_config
-  log_message projects.length
   project = projects.select { |proj| proj.name == request["project"]["name"] }
-  projects.each { |proj| log_message proj.name }
   if project.length < 1
     log_message "Project '#{request["project"]["name"]}' not found in configuration."
     return
