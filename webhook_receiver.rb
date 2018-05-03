@@ -49,6 +49,7 @@ def parse_request(request)
     end
   rescue StandardError => e
     log_message "An error occured: #{e}"
+    puts e.backtrace
   end
 end
 

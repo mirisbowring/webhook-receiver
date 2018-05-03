@@ -1,4 +1,4 @@
-@log_file = "/var/log/webhook_receiver.log"
+$log_file = "/var/log/webhook_receiver.log"
 
 ###############################################################################
 
@@ -6,13 +6,9 @@
 # Params:
 # +message+:: the message string to be written to the log file
 def log_message(message)
-  puts message
-  File.open(@log_file, "a") { |f|
-    puts "1"
+  File.open($log_file, "a") { |f|
     f.puts "#{Time.now} --- #{message.to_s}"
-    puts "2"
   }
-  puts "written message"
 end
 
 # Deletes the existing local repo and clones the project to the same folder afterwards
