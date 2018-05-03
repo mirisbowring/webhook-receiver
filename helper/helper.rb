@@ -15,9 +15,8 @@ end
 # Params:
 # +project+:: +Project+ object that holds the parsed configuration file for the related project
 def re_clone(project, event)
-  puts "project - #{project} +++ #{project.name} +++ #{project.data}"
-  puts event
-  log_message "Recloning #{project.name}"
+  string = "Recloning #{project.name}"
+  log_message string
   reClone = system("sudo rm -rf #{project.data["project_parent"]}/#{project.data["project_name"]}")
   log_message "Deleted old files"
   log_message "ssh enabled: #{project.data["ssh"]}"
