@@ -14,21 +14,23 @@ require_relative "helper/helper"
 
 # Loads the webhook configurations
 def load_config
-  @projects = Array.new
+  projects = Array.new
   Dir.glob("#{@config_path}/*.json") do |cf|
     if !cf.end_with?("template.json")
-      @projects << Project.new(cf)
+      projects << Project.new(cf)
     end
   end
+  projects
 end
 
 # Parses the webhook and handles the configured events
 # Params:
 # +request+:: +JSON+ object that holds the webhook data
 def parse_request(request)
-  project = @projects.select { |proj| proj.name == request["project"]["name"] }
-  log_message @projects.length
-  @projects.each { |proj| log_message proj.name }
+  projects = load_config
+  log_message projects.length
+  project = projects.select { |proj| proj.name == request["project"]["name"] }
+  projects.each { |proj| log_message proj.name }
   if project.length < 1
     log_message "Project '#{request["project"]["name"]}' not found in configuration."
     return
