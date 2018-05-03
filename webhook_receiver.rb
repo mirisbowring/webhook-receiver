@@ -26,10 +26,14 @@ end
 # Params:
 # +request+:: +JSON+ object that holds the webhook data
 def parse_request(request)
-  project = @projects.select { |proj| proj.name == request["project"]["name"] }[0]
+  project = @projects.select { |proj| proj.name == request["project"]["name"] }
+  if project.length < 1
+    log_message "Project '#{request["project"]["name"]}' not found in configuration."
+    return
+  end
+  project = project[0]
   begin
-    data = project.data
-    event = Event.new data["events"].detect { |e| e["event"] == request["object_kind"] }
+    event = Event.new project.data["events"].detect { |e| e["event"] == request["object_kind"] }
     if !event.exist?
       log_message "Event '#{request["object_kind"]}' not configured for #{project.name}."
     elsif event.check_requirements request # returns true if valid
@@ -38,7 +42,7 @@ def parse_request(request)
       log_message "The Current Request does not match all requirements. - skipping"
     end
   rescue StandardError => e
-    log_message "Project '#{request["project"]["name"]}' not found in configuration."
+    log_message "An error occured: #{e}"
   end
 end
 
