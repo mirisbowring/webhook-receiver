@@ -22,14 +22,17 @@ if ! ping -q -c 1 -W 1 8.8.8.8 >/dev/null; then
 	exit 0
 fi
 
+name="webhook_receiver.rb"
 prog="/opt/scripts/gitlab/webhook_receiver/webhook_receiver.rb"
+prog_path="/opt/scripts/gitlab/webhook_receiver/"
 pid="$(cat /opt/scripts/gitlab/webhook_receiver/webhook_receiver.pid)"
 PROG_USER="root"
 RETVAL=0
 
 start () {
         echo -n "Starting $prog"
-        /usr/bin/sudo -u $PROG_USER  ruby "$prog" &
+        cd $prog_path
+        /usr/bin/sudo -u $PROG_USER  ruby "$name" &>> output.log
         RETVAL=$?
         [ $RETVAL -eq 0 ] && success || failure
         echo
