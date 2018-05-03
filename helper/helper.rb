@@ -8,7 +8,7 @@
 def log_message(message)
   puts message
   File.open(@log_file, "a") { |f|
-    f.puts "#{Time.now} --- #{message}"
+    f.puts "#{Time.now} --- #{message.to_s}"
   }
   puts "written message"
 end
@@ -17,8 +17,7 @@ end
 # Params:
 # +project+:: +Project+ object that holds the parsed configuration file for the related project
 def re_clone(project, event)
-  string = "Recloning #{project.name}"
-  log_message string
+  log_message "Recloning #{project.name}"
   reClone = system("sudo rm -rf #{project.data["project_parent"]}/#{project.data["project_name"]}")
   log_message "Deleted old files"
   log_message "ssh enabled: #{project.data["ssh"]}"
