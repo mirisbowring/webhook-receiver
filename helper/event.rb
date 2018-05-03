@@ -34,7 +34,6 @@ class Event
   # +project+:: +Project+ object that holds the parsed configuration file for the related project
   def handle_action(project)
     if @event["action"]["strategy"] == "clone"
-      puts "project -- #{project} +++ #{project.name}"
       re_clone(project, @event)
     else
       do_strategy(project, @event)

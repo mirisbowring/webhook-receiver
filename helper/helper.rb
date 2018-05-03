@@ -6,9 +6,11 @@
 # Params:
 # +message+:: the message string to be written to the log file
 def log_message(message)
+  puts message
   File.open(@log_file, "a") { |f|
     f.puts "#{Time.now} --- #{message}"
   }
+  puts "written message"
 end
 
 # Deletes the existing local repo and clones the project to the same folder afterwards
