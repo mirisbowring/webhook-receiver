@@ -33,17 +33,12 @@ class Event
   # Params:
   # +project+:: +Project+ object that holds the parsed configuration file for the related project
   def handle_action(project)
-    puts "1"
-    puts @event
-    puts @event["action"]
-    puts @event["action"]["strategy"]
     if @event["action"]["strategy"] == "clone"
-      puts "1.5"
+      puts "project -- #{project} +++ #{project.name}"
       re_clone(project, @event)
     else
       do_strategy(project, @event)
     end
-    puts "2"
     returnVal = ""
     begin
       returnVal = system(@event["action"]["execute"])
