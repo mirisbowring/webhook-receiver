@@ -7,7 +7,7 @@
 # +message+:: the message string to be written to the log file
 def log_message(message)
   File.open(@log_file, "a") { |f|
-    f.puts "#{Time.now} --- " + message
+    f.puts "#{Time.now} --- #{message}"
   }
 end
 
