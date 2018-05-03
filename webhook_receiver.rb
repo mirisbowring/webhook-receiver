@@ -37,6 +37,8 @@ def parse_request(request)
     if !event.exist?
       log_message "Event '#{request["object_kind"]}' not configured for #{project.name}."
     elsif event.check_requirements request # returns true if valid
+      log_message "Request valid!"
+      log_message request
       event.handle_action project
     else
       log_message "The Current Request does not match all requirements. - skipping"
@@ -58,9 +60,7 @@ load_config
 log_message "Starting HTTPServer on port #{@port}"
 server = WEBrick::HTTPServer.new :Port => @port
 server.mount_proc "/" do |req, res|
-  log_message "#######################################################################"
   log_message "Received new request"
-  log_message req.body
   parse_request JSON.parse req.body
 end
 
